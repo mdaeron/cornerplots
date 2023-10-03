@@ -10,7 +10,7 @@ __contact__   = 'daeron@lsce.ipsl.fr'
 __copyright__ = 'Copyright (c) 2023 Mathieu Daëron'
 __license__   = 'MIT License - https://opensource.org/licenses/MIT'
 __date__      = '2023-10-03'
-__version__   = '1.1'
+__version__   = '1.2'
 
 
 import matplotlib.pyplot as _ppl
@@ -18,14 +18,19 @@ import matplotlib.pyplot as _ppl
 
 class Stairplots():
 
-	def __init__(self, fields, labels, subplots_adjust_args = (.15, .15, .95, .95, .4, .4)):
+	def __init__(self,
+		fields, labels,
+		subplots_adjust = (.15, .15, .95, .95, .4, .4),
+		sharexy = True,
+		):
 		"""
 		Create triangle of axes plotting each field against each other once
 	
 		Parameters:
 			fields (list): list of strings to be used as data fields
 			labels (list): list of strings to be used as axis labels
-			subplots_adjust_args (tuple): arguments to pass to `subplots_adjust()`
+			subplots_adjust (tuple): arguments to pass to `subplots_adjust()`
+			sharexy (bool): force all X- and Y-axes of the same field to have identical limits
 		"""
 
 		self.fields = [_ for _ in fields]
@@ -40,8 +45,8 @@ class Stairplots():
 			for j in range(k+1,N):
 				axes[(k, j)] = _ppl.subplot(
 					N-1, N-1, (N-1)*(j-1) + k + 1,
-					sharex = axes[(k,k+1)]  if j > (k+1) else None,
-					sharey = axes[(0,j)]  if k > 0 else None,
+					sharex = axes[(k,k+1)]  if sharexy and j > (k+1) else None,
+					sharey = axes[(0,j)]  if sharexy and k > 0 else None,
 					)
 				if j == (N-1) :
 					_ppl.xlabel(labels[k])
