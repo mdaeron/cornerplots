@@ -19,7 +19,7 @@ import matplotlib.pyplot as _ppl
 class Stairplots():
 
 	def __init__(self,
-		fields, labels,
+		fields, labels = None,
 		subplots_adjust = (.15, .15, .95, .95, .4, .4),
 		sharexy = True,
 		):
@@ -34,9 +34,9 @@ class Stairplots():
 		"""
 
 		self.fields = [_ for _ in fields]
-		self.labels = [_ for _ in labels]
+		self.labels = [_ for _ in fields] if labels is None else [_ for _ in labels]
 
-		_ppl.subplots_adjust(*subplots_adjust_args)
+		_ppl.subplots_adjust(*subplots_adjust)
 
 		N = len(labels)
 		axes = {}
@@ -60,15 +60,18 @@ class Stairplots():
 		Plot data in the proper location of a stairplot
 	
 		Parameters:
-			datadict (dict): a dictionary of the form `{f1: <array-like>, f2: <array-like>}`,
-				where `f1` and `f2` are the fields corresponding to each array-like to plot.
+			datadict (dict): a dictionary of the form `{f1: <array-like>, f2: <array-like>, ...}`,
+				where `f1`, `f2`, ... are fields corresponding to each array-like to plot.
 				These fields will determine which subplot to use, and whether each field
 				should plot along the X or Y axis.
 			*args, **kwargs: to be passed on to `plot()`
 	
 		Returns:
-			whatever `plot()` returns
+			List of values returned by `plot()`
 		"""
-		i, j = sorted([self.fields.index(_) for _ in datadict])
-		fi, fj = self.fields[i], self.fields[j]
-		return self.axes[(fi, fj)].plot(datadict[fi], datadict[fj], *args, **kwargs)
+		indices = sorted([self.fields.index(_) for _ in datadict])
+		fields = [self.fields[_] for _ in indices]
+		return [
+			self.axes[(fi, fj)].plot(datadict[fi], datadict[fj], *args, **kwargs)
+			for _, fi in enumerate(fields[:-1]) for fj in fields[_+1:]
+			]

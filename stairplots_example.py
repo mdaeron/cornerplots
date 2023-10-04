@@ -25,6 +25,9 @@ data = rng.multivariate_normal(
 	size = Ndata,
 	)
 
+data = {f: data[:,k] for k,f in enumerate(fields)}
+meandata = {_: data[_].mean() for _ in data}
+
 ### CREATE THE STAIRPLOTS ###
 
 from stairplots import *
@@ -33,13 +36,7 @@ import matplotlib.pyplot as ppl
 ppl.figure(figsize = (6,6))
 sp = Stairplots(fields, labels)
 
-for j in range(N):
-	for k in range(N):
-		if j<k:
-			sp.plot(
-				{fields[j]: data[:,j], fields[k]: data[:,k]},
-				'r+',
-				alpha = 0.1,
-				)
+sp.plot(data, 'r+', alpha = 0.05)
+sp.plot(meandata, 'ws', mec = 'k', mew = 1, ms = 8)
 
 ppl.savefig('stairplots.png')
