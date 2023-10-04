@@ -10,7 +10,7 @@ __contact__   = 'daeron@lsce.ipsl.fr'
 __copyright__ = 'Copyright (c) 2023 Mathieu Daëron'
 __license__   = 'MIT License - https://opensource.org/licenses/MIT'
 __date__      = '2023-10-03'
-__version__   = '1.2'
+__version__   = '1.3'
 
 
 import matplotlib.pyplot as _ppl
