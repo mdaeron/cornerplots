@@ -1,42 +1,39 @@
 #! /usr/bin/env python3
 
-### GENERATE SOME RANDOM DATA ###
-
-from numpy.random import default_rng
-from numpy import cov, zeros, eye
-
-labels = ['aaa', 'bbb', 'ccc', 'ddd']
-fields = labels
-N = len(labels)
-Ndata = 1000
-
-rng = default_rng(1)
-
-seed_data = rng.multivariate_normal(
-	mean = zeros((N,)),
-	cov = eye(N),
-	size = 3,
-	)
-C = cov(seed_data.T)
-
-data = rng.multivariate_normal(
-	mean = [1, 2, 4, 8],
-	cov = C,
-	size = Ndata,
-	)
-
-data = {f: data[:,k] for k,f in enumerate(fields)}
-meandata = {_: data[_].mean() for _ in data}
-
-### CREATE THE STAIRPLOTS ###
-
+import numpy as np
 from stairplots import *
 import matplotlib.pyplot as ppl
 
-ppl.figure(figsize = (6,6))
-sp = Stairplots(fields, labels)
+data_1 = dict(
+    w = np.array([1, 2, 3, 4]),
+    x = np.array([0, 2, 4, 5]),
+    y = np.array([1, 4, 6, 8]),
+    )
 
-sp.plot(data, 'r+', alpha = 0.05)
-sp.plot(meandata, 'ws', mec = 'k', mew = 1, ms = 8)
+data_2 = dict(
+    x = np.array([1, 2, 5]),
+    y = np.array([3, 5, 7]),
+    z = np.array([0, 1, 3]),
+    )
+
+t = np.linspace(0, 1)
+model = dict(
+    w = 3 * t + 1,
+    x = 5 * t,
+    y = 8 * t**.5,
+    z = 3 * t**1.5,
+    )
+
+
+ppl.figure(figsize = (5,5))
+
+sp = Stairplots(
+    fields = ['w', 'x', 'y', 'z'],
+    labels = ['W-value', 'X-value', 'Y-value', 'Z-value'],
+    )
+
+sp.plot(model, 'k-', lw = 1, dashes = (6,2,2,2))
+sp.plot(data_1, 'ws', mec = 'r', mew = 1, ms = 5)
+sp.plot(data_2, 'wD', mec = 'b', mew = 1, ms = 5)
 
 ppl.savefig('stairplots.png')
