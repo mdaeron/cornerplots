@@ -31,6 +31,7 @@ fig = ppl.figure(figsize = (5,5))
 cp = Cornerplots(
     fields = ['w', 'x', 'y', 'z'],
     labels = ['W-value', 'X-value', 'Y-value', 'Z-value'],
+    grid_kwargs = {'alpha': 0.25, 'lw': 0.7},
     )
 
 cp.plot(model,     'k-', lw = 1, dashes = (6,2,2,2), label = 'model')
