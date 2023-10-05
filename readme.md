@@ -1,4 +1,4 @@
-# Stairplots
+# Cornerplots
 
 Simple library to create corner plots in `matplotlib`. Corner plots provide a simple way to visualize multidimensional data, with each dimension plotted against every other dimension. The main goal is to let the user specify data and/or model predictions in arbitrary subsets of the multi-dimensional space and let the code take care of where to plot these values. Originally inspired by [corner.py](https://github.com/dfm/corner.py).
 
