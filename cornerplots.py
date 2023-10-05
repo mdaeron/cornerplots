@@ -1,7 +1,7 @@
 """
-Simple library to create stairplots in `matplotlib`.
+Simple library to create corner plots in `matplotlib`.
 
-Stairplots provide a simple way to visualize multidimensional data,
+Corner plots provide a simple way to visualize multidimensional data,
 with each dimension plotted against every other dimension.
 """
 
@@ -10,13 +10,13 @@ __contact__   = 'daeron@lsce.ipsl.fr'
 __copyright__ = 'Copyright (c) 2023 Mathieu Daëron'
 __license__   = 'MIT License - https://opensource.org/licenses/MIT'
 __date__      = '2023-10-05'
-__version__   = '1.5'
+__version__   = '1.0'
 
 
 import matplotlib.pyplot as _ppl
 
 
-class Stairplots():
+class Cornerplots():
 
 	def __init__(self,
 		fields, labels = None, fig = None,
@@ -62,7 +62,7 @@ class Stairplots():
 
 	def plot(self, datadict, *args, **kwargs):
 		"""
-		Plot data in the proper location of a stairplot
+		Plot data in the proper location of a cornerplot
 	
 		Parameters:
 			datadict (dict): a dictionary of the form `{f1: <array-like>, f2: <array-like>, ...}`,
@@ -90,7 +90,7 @@ class Stairplots():
 
 	def legend(self, *args, **kwargs):
 		"""
-		Plot combined legend for all stairplots
+		Plot combined legend for all cornerplots
 	
 		Parameters:
 			*args, **kwargs: to be passed on to `pyplot.legend()`

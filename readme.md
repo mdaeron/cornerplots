@@ -1,6 +1,6 @@
 # Stairplots
 
-Simple library to create stairplots in `matplotlib`. Stairplots provide a simple way to visualize multidimensional data, with each dimension plotted against every other dimension. The main goal is to let the user specify data and/or model predictions in arbitrary subsets of the multi-dimensional space and let the code take care of where to plot these values. Originally inspired by [corner.py](https://github.com/dfm/corner.py).
+Simple library to create corner plots in `matplotlib`. Corner plots provide a simple way to visualize multidimensional data, with each dimension plotted against every other dimension. The main goal is to let the user specify data and/or model predictions in arbitrary subsets of the multi-dimensional space and let the code take care of where to plot these values. Originally inspired by [corner.py](https://github.com/dfm/corner.py).
 
 ## Simple example
 
@@ -35,26 +35,26 @@ In that case, you could plot everything by simply calling:
 
 
 ```py
-from stairplots import *
+from cornerplots import Cornerplots
 import matplotlib.pyplot as ppl
 
 fig = ppl.figure(figsize = (5,5))
 
-sp = Stairplots(
+cp = Cornerplots(
     fields = ['w', 'x', 'y', 'z'],
     labels = ['W-value', 'X-value', 'Y-value', 'Z-value'],
     )
 
-sp.plot(model,     'k-', lw = 1, dashes = (6,2,2,2), label = 'model')
-sp.plot(red_data,  'ws', mec = 'r', mew = 1, ms = 5, label = 'red data')
-sp.plot(blue_data, 'wD', mec = 'b', mew = 1, ms = 5, label = 'blue data')
+cp.plot(model,     'k-', lw = 1, dashes = (6,2,2,2), label = 'model')
+cp.plot(red_data,  'ws', mec = 'r', mew = 1, ms = 5, label = 'red data')
+cp.plot(blue_data, 'wD', mec = 'b', mew = 1, ms = 5, label = 'blue data')
 
-sp.legend()
+cp.legend()
 
-ppl.savefig('stairplots.png')
+ppl.savefig('example.png')
 ```
 
 
 <div align="center">
-<img src="stairplots.png">
+<img src="example.png">
 </div>

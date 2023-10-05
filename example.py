@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import numpy as np
-from stairplots import *
+from cornerplots import Cornerplots
 import matplotlib.pyplot as ppl
 
 
@@ -28,15 +28,15 @@ blue_data = dict(
 
 fig = ppl.figure(figsize = (5,5))
 
-sp = Stairplots(
+cp = Cornerplots(
     fields = ['w', 'x', 'y', 'z'],
     labels = ['W-value', 'X-value', 'Y-value', 'Z-value'],
     )
 
-sp.plot(model,     'k-', lw = 1, dashes = (6,2,2,2), label = 'model')
-sp.plot(red_data,  'ws', mec = 'r', mew = 1, ms = 5, label = 'red data')
-sp.plot(blue_data, 'wD', mec = 'b', mew = 1, ms = 5, label = 'blue data')
+cp.plot(model,     'k-', lw = 1, dashes = (6,2,2,2), label = 'model')
+cp.plot(red_data,  'ws', mec = 'r', mew = 1, ms = 5, label = 'red data')
+cp.plot(blue_data, 'wD', mec = 'b', mew = 1, ms = 5, label = 'blue data')
 
-sp.legend()
+cp.legend()
 
-ppl.savefig('stairplots.png')
+ppl.savefig('example.png')
