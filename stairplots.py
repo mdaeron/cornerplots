@@ -9,8 +9,8 @@ __author__    = 'Mathieu Daëron'
 __contact__   = 'daeron@lsce.ipsl.fr'
 __copyright__ = 'Copyright (c) 2023 Mathieu Daëron'
 __license__   = 'MIT License - https://opensource.org/licenses/MIT'
-__date__      = '2023-10-03'
-__version__   = '1.3'
+__date__      = '2023-10-05'
+__version__   = '1.4'
 
 
 import matplotlib.pyplot as _ppl
@@ -36,6 +36,7 @@ class Stairplots():
 		self.fields = [_ for _ in fields]
 		self.labels = [_ for _ in fields] if labels is None else [_ for _ in labels]
 
+		self.subplots_adjust = subplots_adjust
 		_ppl.subplots_adjust(*subplots_adjust)
 
 		N = len(labels)
@@ -54,6 +55,9 @@ class Stairplots():
 					_ppl.ylabel(labels[j])
 
 		self.axes = {(self.fields[i], self.fields[j]): axes[(i, j)] for i, j in axes}
+		self.legend_items = []
+		self.fig = _ppl.gcf()
+
 
 	def plot(self, datadict, *args, **kwargs):
 		"""
@@ -71,7 +75,27 @@ class Stairplots():
 		"""
 		indices = sorted([self.fields.index(_) for _ in datadict])
 		fields = [self.fields[_] for _ in indices]
-		return [
-			self.axes[(fi, fj)].plot(datadict[fi], datadict[fj], *args, **kwargs)
-			for _, fi in enumerate(fields[:-1]) for fj in fields[_+1:]
-			]
+
+		result = []
+		for _, fi in enumerate(fields[:-1]):
+			for fj in fields[_+1:]:
+				result += self.axes[(fi, fj)].plot(datadict[fi], datadict[fj], *args, **kwargs)
+
+		if not result[0].get_label().startswith('_'):
+			self.legend_items.append(result[0])
+
+		return result
+
+
+	def legend(self, *args, **kwargs):
+		return _ppl.legend(
+			self.legend_items,
+			[_.get_label() for _ in self.legend_items],
+			*args,
+			**(kwargs | {
+				'loc': 'upper right',
+				'bbox_to_anchor': self.subplots_adjust[2:4],
+				'bbox_transform': self.fig.transFigure,
+				'borderaxespad': 0,
+				}),
+			)
