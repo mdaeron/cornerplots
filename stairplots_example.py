@@ -9,7 +9,7 @@ t = np.linspace(0, 1)
 model = dict(
     w = 3 * t + 1,
     x = 5 * t,
-    y = 8 * t**.5,
+    y = 7 * t**.5,
     z = 3 * t**1.5,
     )
 
