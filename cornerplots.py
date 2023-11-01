@@ -49,6 +49,8 @@ class Cornerplots():
 				self.subplots_adjust = (.12, .12, .95, .95, .3, .3)
 			else:
 				self.subplots_adjust = (.12, .12, .95, .95, .15, .15)
+		else:
+			self.subplots_adjust = subplots_adjust
 
 		_ppl.figure(self.fig)
 		_ppl.subplots_adjust(*self.subplots_adjust)
